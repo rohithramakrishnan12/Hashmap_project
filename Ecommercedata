@@ -1,0 +1,62 @@
+package TaskF;
+
+import java.util.*;
+
+public class EcommerceOrder {
+     static Map.Entry<String, Integer> findMostFrequent(Map<String, Integer> count) {
+        Map.Entry<String, Integer> maxEntry = null;
+
+        for (Map.Entry<String, Integer> entry : count.entrySet()) {
+            if (maxEntry == null || entry.getValue() > maxEntry.getValue()) {
+                maxEntry = entry;
+            }
+        }
+
+        return maxEntry;
+    }
+
+    static boolean bool(Map<String,Integer> ordered,Map<String,Integer> inventory){
+         boolean allavailable=true;
+        for(String product:ordered.keySet()){
+            if(!inventory.containsKey(product)){
+                System.out.println(product+" is missing product");
+                allavailable= false;
+            }
+        }
+        return allavailable;
+    }
+
+    static String[] spl(String CusOrd){
+        String[]  result=CusOrd.trim().split("\\s+");
+        return result;
+    }
+    public static void main(String[] args) {
+        Scanner sc=new Scanner(System.in);
+        System.out.print("Enter the order: ");
+        String n=sc.nextLine();
+        String[] item=spl(n);
+        //customer order
+        Map<String,Integer> count=new HashMap<>();
+        for(String a:item){
+            count.put(a,count.getOrDefault(a,0)+1);
+        }
+        System.out.println("Customer order: "+count);
+        //inventory
+        Map<String,Integer> AP=new HashMap<>();
+        AP.put("apple",6);
+        AP.put("orange",6);
+        AP.put("mango",2);
+        AP.put("grapes",1);
+        System.out.println("Inventory products Available: "+AP);
+//weather it is presenting  or not return true  or false:
+        boolean availability=bool(count,AP);
+        System.out.println(availability);
+
+        //frequent order
+        Map.Entry<String,Integer> result=findMostFrequent(count);
+        System.out.println("Product: "+result.getKey());
+        System.out.println("Quantity: "+result.getValue());
+
+
+    }
+}
