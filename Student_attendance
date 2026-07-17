@@ -1,0 +1,49 @@
+package TaskF;
+
+import java.util.*;
+
+
+public class StudentAttendanceTracker {
+    static String trimnames(String name){
+        name=name.trim();
+        if(name.isEmpty()){
+            return name;
+        }
+        String First=name.substring(0,1).toUpperCase();
+        String rest=name.substring(1).toLowerCase();
+        return First+rest;
+    }
+
+    public static void main(String[] args) {
+        Scanner sc=new Scanner(System.in);
+        // System.out.println("Enter the number of ");
+        String[] names={"ravi", "Priya  ", " Ravi ", " amit", "PrIya", "RAvi"};
+
+        String[] arr=new String[names.length];
+
+        for(int i=0;i<names.length;i++){
+         arr[i]=trimnames(names[i]);
+        }
+
+        HashMap<String,Integer> namecount=new HashMap<>();
+        for(String name:arr){
+            namecount.put(name,namecount.getOrDefault(name,0)+1);
+        }
+        System.out.println("Students: "+namecount);
+        String manytime=null;
+        int maxcount=0;
+        for(Map.Entry<String,Integer> entry:namecount.entrySet()){
+            if(entry.getValue()>maxcount){
+                maxcount=entry.getValue();
+                manytime=entry.getKey();
+            }
+        }
+        System.out.println("Maximum Time entered: "+manytime+" -> "+"Count: "+maxcount);
+
+        Set<String> unique=new LinkedHashSet<>();
+        for(String un:arr){
+            unique.add(un);
+        }
+        System.out.println("Unique person: "+unique);
+    }
+}
